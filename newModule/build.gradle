@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'org.example.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.example.Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect{it.isDirectory() ? it: zipTree(it)}
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.google.guava:guava:32.0.1-jre'
+}
+
+test {
+    useJUnitPlatform()
+}

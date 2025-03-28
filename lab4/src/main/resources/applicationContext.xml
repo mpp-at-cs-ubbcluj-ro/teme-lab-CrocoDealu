@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="properties" class="org.example.utils.PropertiesLoader">
+        <constructor-arg value="./lab4/config.properties" />
+    </bean>
+
+    <bean id="jdbcUtils" class="org.example.utils.JdbcUtils">
+        <constructor-arg ref="properties" />
+    </bean>
+
+    <bean id="gameRepository" class="org.example.repository.GameInMemoryRepository"/>
+
+    <bean id="gameService" class="org.example.service.GameService">
+        <constructor-arg ref="gameRepository" />
+    </bean>
+
+    <bean id="cashierRepository" class="org.example.repository.CashierInMemoryRepository"/>
+
+    <bean id="cashierService" class="org.example.service.CashierService">
+        <constructor-arg ref="cashierRepository" />
+    </bean>
+
+    <bean id="ticketRepository" class="org.example.repository.TicketInMemoryRepository">
+        <constructor-arg ref="gameRepository" />
+        <constructor-arg ref="cashierRepository" />
+    </bean>
+
+    <!-- Bean for TicketService -->
+    <bean id="ticketService" class="org.example.service.TicketService">
+        <constructor-arg ref="ticketRepository" />
+    </bean>
+
+    <bean id="springFXMLLoader" class="org.example.utils.SpringFXMLLoader" />
+
+    <bean id="loginController" class="org.example.controller.LoginController">
+        <constructor-arg ref="gameService" />
+        <constructor-arg ref="cashierService" />
+        <constructor-arg ref="ticketService" />
+        <constructor-arg ref="springFXMLLoader" />
+    </bean>
+
+    <bean id="mainController" class="org.example.controller.MainController">
+        <constructor-arg ref="gameService" />
+        <constructor-arg ref="cashierService" />
+        <constructor-arg ref="ticketService" />
+        <constructor-arg ref="springFXMLLoader" />
+    </bean>
+
+    <bean id="ticketsController" class="org.example.controller.TicketsController">
+        <constructor-arg ref="ticketService" />
+    </bean>
+</beans>

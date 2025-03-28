@@ -35,23 +35,21 @@ public class Main extends Application{
 
     @Override
     public void init() {
-        springContext = new AnnotationConfigApplicationContext(AppConfig.class);
-//        springContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-//
-//        SpringFXMLLoader loader = springContext.getBean(SpringFXMLLoader.class);
-//        loader.setContext(springContext);
+//        springContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        springContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     }
 
     @Override
     public void start(Stage primaryStage) {
         SpringFXMLLoader loader = springContext.getBean(SpringFXMLLoader.class);
-//        Cashier cashier = new Cashier(0, "numele", "david", "parola");
-//        Game game = new Game(0, "Steaua", "Ajax", 10, 0, "Champtions League", 100, "Finals", 100.99F);
-//        GameService gameService = springContext.getBean(GameService.class);
-//        CashierService cashierService = springContext.getBean(CashierService.class);
-//
-//        cashierService.saveCashier(cashier);
-//        gameService.saveGame(game);
+        loader.setContext(springContext);
+        Cashier cashier = new Cashier(0, "numele", "david", "parola");
+        Game game = new Game(0, "Steaua", "Ajax", 10, 0, "Champtions League", 100, "Finals", 100.99F);
+        GameService gameService = springContext.getBean(GameService.class);
+        CashierService cashierService = springContext.getBean(CashierService.class);
+
+        cashierService.saveCashier(cashier);
+        gameService.saveGame(game);
         try {
             Parent root = loader.load("/xmlFiles/login.fxml");
 

@@ -5,14 +5,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="properties" class="org.example.utils.PropertiesLoader">
-        <constructor-arg value="./lab4/config.properties" />
-    </bean>
-
-    <bean id="jdbcUtils" class="org.example.utils.JdbcUtils">
-        <constructor-arg ref="properties" />
-    </bean>
-
     <bean id="gameRepository" class="org.example.repository.GameInMemoryRepository"/>
 
     <bean id="gameService" class="org.example.service.GameService">
@@ -30,7 +22,6 @@
         <constructor-arg ref="cashierRepository" />
     </bean>
 
-    <!-- Bean for TicketService -->
     <bean id="ticketService" class="org.example.service.TicketService">
         <constructor-arg ref="ticketRepository" />
     </bean>
